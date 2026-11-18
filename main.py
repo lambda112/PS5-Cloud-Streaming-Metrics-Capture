@@ -55,16 +55,6 @@ def display_packets():
     # terminate ssh session so it doesn't hang
     ssh.terminate()
 
-    # # create file if not exist or overwrite
-    # # output to csv file 
-    # with open("capinfos.csv", "w") as output:
-    #     subprocess.run (
-    #         [f"{wireshark_path}\\capinfos.exe",
-    #         "-TmQiK", "test.pcap"
-    #         ],
-    #         stdout=output
-    #     )
-
 def createTable():
     cap_dataframe = pd.read_csv("packets.csv")
     return cap_dataframe

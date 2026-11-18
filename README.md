@@ -13,3 +13,4 @@ Rescources:
 - https://www.wireshark.org/docs/man-pages/capinfos.html
 - https://discuss.python.org/t/overwriting-a-file-in-python/24085
 - https://stackoverflow.com/questions/5194057/better-way-to-convert-file-sizes-in-python
+- https://pandas.pydata.org/docs/user_guide/groupby.html
