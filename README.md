@@ -9,3 +9,4 @@ Rescources:
 - https://medium.com/@wajidmir1111/tshark-7f6b81f304d1
 - https://tshark.dev/capture/tshark/
 - https://danielmiessler.com/blog/tcpdump#capturing-traffic-on-an-interface
+- https://osqa-ask.wireshark.org/questions/54690/how-do-i-make-tshark-write-a-pcap-capture-rather-than-a-pcapng-capture/

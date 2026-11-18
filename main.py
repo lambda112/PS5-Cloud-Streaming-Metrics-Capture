@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 import subprocess
+from time import sleep 
 
 load_dotenv()
 
@@ -18,34 +19,23 @@ ssh = subprocess.Popen (
 )
 
 # Tshark command, pass ssh stream as input, filter and output processed packets
-# -i 
+# -i - use input stream
+# -l flush packet straight away 
+# -n disable name resolutions, which could slow down live output
 tshark = subprocess.Popen (
     [f"{wireshark_path}\\tshark.exe", 
-     "-i", "-", "-l", "-n",
-     "-Y", ip_addresses,    
-     "-T", "fields", 
-     "-e", "ip.src", "-e", "ip.dst", "-e", "frame.time_relative"
+     "-i", "-", "-w", "test.pcap", "-F", "libpcap" , "-n", "-P",  
+     "-c", "5",
+     "capinfos", "-m", "capinfos", "-T"
     ],
     stdin=ssh.stdout,
-    stdout=subprocess.PIPE
 )
 
 # Output packets to console
 def display_packets():
-    count = 0 
-    for packet in tshark.stdout:
-        count += 1
-        print(f"Packet {count}: {packet.decode().strip()}")
-
-        # Stop after x amount of times
-        if (count > 4):
-            break
-
-    # Close processes
-    tshark.terminate()
-    ssh.terminate()
+    pass
 
     
 if __name__ == "__main__":
-    display_packets()
-
+    #display_packets()
+    sleep(10)
