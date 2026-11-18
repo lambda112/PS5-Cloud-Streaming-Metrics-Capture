@@ -25,17 +25,25 @@ ssh = subprocess.Popen (
 tshark = subprocess.Popen (
     [f"{wireshark_path}\\tshark.exe", 
      "-i", "-", "-w", "test.pcap", "-F", "libpcap" , "-n", "-P",  
-     "-c", "5",
-     "capinfos", "-m", "capinfos", "-T"
+     "-c", "5"
     ],
     stdin=ssh.stdout,
 )
 
-# Output packets to console
+# use capinfos to get information i want in table format
 def display_packets():
-    pass
+    tshark.wait()
+    ssh.terminate()
+
+    with open("capinfos.csv", "w") as output:
+        subprocess.run (
+            [f"{wireshark_path}\\capinfos.exe",
+            "-TmQiK", "test.pcap"
+            ],
+            stdout=output
+        )
 
     
 if __name__ == "__main__":
-    #display_packets()
+    display_packets()
     sleep(10)
