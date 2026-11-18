@@ -12,3 +12,4 @@ Rescources:
 - https://osqa-ask.wireshark.org/questions/54690/how-do-i-make-tshark-write-a-pcap-capture-rather-than-a-pcapng-capture/
 - https://www.wireshark.org/docs/man-pages/capinfos.html
 - https://discuss.python.org/t/overwriting-a-file-in-python/24085
+- https://stackoverflow.com/questions/5194057/better-way-to-convert-file-sizes-in-python

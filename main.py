@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 import subprocess
 from time import sleep 
+import pandas as pd
 
 load_dotenv()
 
@@ -30,20 +31,46 @@ tshark = subprocess.Popen (
     stdin=ssh.stdout,
 )
 
+def process_packets():
+    with open("packets.csv", "w") as output:
+
+        subprocess.run(
+            [f"{wireshark_path}\\tshark.exe",
+            "-r", "test.pcap",
+            "-Y", ip_addresses,
+            "-T", "fields", "-E", "separator=,", "-E", "header=y",
+            "-e", "frame.time_relative", "-e", "frame.len", "-e", "frame.time_delta"
+            ],
+            stdout = output
+        )
+
+
 # use capinfos to get information i want in table format
 def display_packets():
+
+    # wait for process to finish
     tshark.wait()
+    process_packets()
+
+    # terminate ssh session so it doesn't hang
     ssh.terminate()
 
-    with open("capinfos.csv", "w") as output:
-        subprocess.run (
-            [f"{wireshark_path}\\capinfos.exe",
-            "-TmQiK", "test.pcap"
-            ],
-            stdout=output
-        )
+    # # create file if not exist or overwrite
+    # # output to csv file 
+    # with open("capinfos.csv", "w") as output:
+    #     subprocess.run (
+    #         [f"{wireshark_path}\\capinfos.exe",
+    #         "-TmQiK", "test.pcap"
+    #         ],
+    #         stdout=output
+    #     )
+
+def createTable():
+    cap_dataframe = pd.read_csv("packets.csv")
+    return cap_dataframe
 
     
 if __name__ == "__main__":
     display_packets()
     sleep(10)
+    print(createTable())
